@@ -26,33 +26,45 @@
 	      偷窃到的最高金额 = 2 + 9 + 1 = 12 。
 */
 
+/*
+ * dp: 最后一间房，要么偷，要么不偷
+ * 公式： f(n) = max(f(n-2) + a[n], f(n-1))
+ */
+
+
 #include <vector>
+#include<gtest/gtest.h>
+#include <stdio.h>
 
 using std::vector;
-#include <stdio.h>
+
 class Solution {
 public:
 	int rob(vector<int>& nums) {
-		const size_t n = nums.size();
-		int money[n] = {0};
-		money[n-1] = nums[n-1];
-		printf("money %d, %d\n", n-1, money[n-1]);
-		money[n-2] = std::max(nums[n-1], nums[n-2]);
-		printf("money %d, %d\n", n-2, money[n-2]);
-		money[n-3] = std::max(money[n-1] + nums[n-3], money[n-2]);
-		printf("money %d, %d\n", n-3, money[n-3]);
-		for (int i = n-4; i >= 0; --i) {
-			money[i] = std::max(nums[i] + money[i+2], nums[i+1] + money[i+3]);
-			printf("money %d, %d\n", i, money[i]);
+		if (nums.empty()) {
+			return 0;
 		}
-		return money[0];
+		const int n = nums.size();
+		int money[n+1];
+		money[0] = 0;
+		money[1] = nums[0];
+		for (int i = 2; i <= n; ++i) {
+			money[i] = std::max(nums[i-1] + money[i-2], money[i-1]);
+		}
+		return money[n];
 	}
 };
 
-
-int main() {
-	vector<int> aaa{1,2,3,1};
+TEST(test_rob, dp) {
 	Solution s;
-	int money = s.rob(aaa);
-	printf("====%d\n", money);
+	std::vector<int> nums_1{1,2,3,1};
+	std::vector<int> nums_2{2,7,9,3,1};
+	EXPECT_EQ(s.rob(nums_1), 4);
+	EXPECT_EQ(s.rob(nums_2), 12);
+}
+
+
+int main(int argc, char** argv) {
+	testing::InitGoogleTest(&argc,argv);
+	return RUN_ALL_TESTS();
 }
