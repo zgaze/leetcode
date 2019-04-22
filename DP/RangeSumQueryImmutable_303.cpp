@@ -29,7 +29,7 @@
 
 
 
-#include <printf.h>
+#include <stdio.h>
 #include <vector>
 #include <string>
 #include <stdio.h>
@@ -44,7 +44,7 @@ public:
 	NumArray(vector<int>& nums) {
 		if (nums.empty()) return;
 		int size = nums.size();
-		sums.reserve(size);
+		sums.resize(size);
 		sums[0] = nums[0];
 		for (int i = 1; i < size; ++i) {
 			sums[i] = nums[i] + sums[i-1];

@@ -39,7 +39,7 @@
  * f(1) = 0;
  */
 
-#include <printf.h>
+#include <stdio.h>
 #include <vector>
 #include <string>
 #include <stdio.h>
