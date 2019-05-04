@@ -12,7 +12,7 @@
 #include <string>
 #include <stdio.h>
 #include <climits>
-#include<gtest/gtest.h>
+#include <gtest/gtest.h>
 
 /*
  *
@@ -38,17 +38,49 @@
 /*
  * 动态规划法：Is[i][j] 为true表示区间i->j为回文。
  * 根据提示2，单个字符串是回文： Is[i][i] = true;
- * 根据提示2，只要区间不同，记为不同子串
- *
- *
+ * 根据提示1，只要区间不同，记为不同子串
+ * 只有当s[i] == s[j]并且字符段[i + 1, j - 1]是回文串的时候，s[i, j]才能说是回文串
+ * if (s[i] == s[j] && dp[i + 1][j - 1]){
+ *	   dp[i][j] = true;
+ *	   result += 1;
+ * }
  */
-
 
 using std::vector;
 using std::string;
 
-TEST(testCase,test0) {
+class Solution {
+public:
+	int countSubstrings(string s) {
+		int length = s.length();
+		bool dp[length][length];
+		memset(dp, 0, sizeof(dp));
+		int result = 0;
+		for (int i = length -1; i >= 0; --i) {
+			for (int j = i; j < length; ++j)  {
+				if (j - i <= 1 && s[i] == s[j]) {
+					dp[i][j] = true;
+					result ++;
+				} else if (s[i] == s[j] && dp[i + 1][j - 1]) {
+					dp[i][j] = true;
+					result ++;
+				}
+			}
+		}
+		return result;
+	}
+};
 
+
+
+TEST(testCase,test0) {
+	std::string s1{"abc"};
+	std::string s2{"longtimenosee"};
+	std::string s3{"aaa"};
+	Solution s;
+	EXPECT_EQ(s.countSubstrings(s1), 3);
+	EXPECT_EQ(s.countSubstrings(s2), 14);
+	EXPECT_EQ(s.countSubstrings(s3), 6);
 }
 
 

@@ -53,7 +53,13 @@ public:
 		}
 		for (int i = 1; i < m; ++i) {
 			for (int j = 0; j < n; ++j) {
-				dp[i][j] = dp[i-1][j] + A[i][j];
+				if (j <= 0) {
+					dp[i][j] = std::min(dp[i-1][j] + A[i][j], dp[i-1][j+1] + A[i][j]);
+				} else if (j == n-1){
+					dp[i][j] = std::min(dp[i-1][j] + A[i][j], dp[i-1][j-1] + A[i][j]);
+				}else {
+					dp[i][j] = std::min(std::min(dp[i-1][j] + A[i][j], dp[i-1][j-1] + A[i][j]), dp[i-1][j+1] + A[i][j]);
+				}
 			}
 		}
 		int min = INT_MAX;
