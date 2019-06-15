@@ -26,45 +26,48 @@ using std::string;
  *
  */
 
+
 class Solution {
 public:
-	string multiply(string num1, string num2) {
-		if (num1.empty() || num2.empty()) {
-			return "";
-		}
-		if (num1 == "0" || num2 == "0") {
-			return "0";
-		}
-		int m = num1.length(), n = num2.length();
-		int * buf = new int[m+n];
-		memset(buf, 0, (m+n)*sizeof(int));
-		for (int i = 0; i < m; ++i) {
-			for (int j = 0; j < n; ++j) {
-				buf[i+j+1] += (num1[i]- '0') * (num2[j] - '0');
-			}
-		}
-		for (int i = m+n-1; i > 0; i--) {
-			int c = buf[i];
-			if (c > 9) {
-				buf[i] = (c % 10);
-				buf[i-1] += (c/10);
-			}
-		}
-		// int 转char
-		char ret[m+n];
-		memset(ret, '0', sizeof ret);
-		for (int i = m+n-1; i >= 0; i--) {
-			ret[i] =  buf[i] + '0';
-		}
-		if (ret[0] == '0') {
-			return string(string(ret), 1, m+n-1);
-		}
-		delete[] buf;
-		return string(ret, 0, m+n);
-	}
+    string multiply(string num1, string num2) {
+        if (num1.empty() || num2.empty()) {
+            return "";
+        }
+        if (num1 == "0" || num2 == "0") {
+            return "0";
+        }
+        int m = num1.length(), n = num2.length();
+        int buf[m+n];
+        memset(buf, 0, (m+n)*sizeof(int));
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                buf[i+j+1] += (num1[i]- '0') * (num2[j] - '0');
+            }
+        }
+        for (int i = m+n-1; i > 0; i--) {
+            int c = buf[i];
+            if (c > 9) {
+                buf[i] = (c % 10);
+                buf[i-1] += (c/10);
+            }
+        }
+        // int 转char
+        char ret[m+n+1];
+        memset(ret, '0', m+n+1);
+        ret[m+n] = '\0';
+        for (int i = m+n-1; i >= 0; i--) {
+            ret[i] =  buf[i] + '0';
+        }
+        std::string s;
+        if (ret[0] == '0') {
+            s =  string(string(ret), 1, m+n-1);
+        } else {
+            s =  string(ret, 0, m+n);
+        }
+        return s;
+    }
 };
 
-/*
 TEST(testCase,test0) {
 	std::string s1 = "99", s2 = "999";
 	Solution s;
@@ -74,15 +77,13 @@ TEST(testCase,test0) {
 	EXPECT_EQ(s.multiply("555555555", "559205550004"), "310669749691552472220");
 	EXPECT_EQ(s.multiply("1000000000000000000", "559205550004"), "559205550004000000000000000000");
 }
-*/
 
 
 int main(int argc, char* argv[]) {
-    //testing::InitGoogleTest(&argc,argv);
-    //return RUN_ALL_TESTS();
 	std::string s1 = "1000000000000000000", s2 = "559205550004";
 	Solution s;
 	s.multiply(s1, s2);
-	return 0;
+    testing::InitGoogleTest(&argc,argv);
+    return RUN_ALL_TESTS();
 }
 
