@@ -37,57 +37,24 @@ using std::string;
 
 class Solution {
 public:
-	int lengthOfLISx(vector<int>& nums) {
+	int lengthOfLIS(vector<int>& nums) {
 		int ret = 0;
 		int len = nums.size();
 		int dp[len];
 		memset(dp, 0, sizeof(dp));
 		for (int i = 0; i < len; ++i) {
+			int max = 0;
 			for (int j = 0; j < len; ++j) {
-				
+				if (nums[i] > nums[i]) {
+					max = std::max(max, dp[i]);
+				}
 			}
+			dp[i] = max + 1;
+			ret = std::max(dp[i], ret);
 		}
-
+		return ret;
 	}
 
-	int lengthOfLIS(vector<int>& nums) {
-		return process(nums, nums.size()-1);
-		/*
-		for (int i = 0; i < (int)nums.size(); ++i) {
-			int tmplen = process(nums, i);
-			if (len < tmplen) len = tmplen;
-		}
-		return len;
-		*/
-	}
-		
-	int process(const vector<int>& nums, int i)
-	{
-		if (i < 0 || i >= nums.size())
-		{
-			return 0;
-		}
-		int len = 1;
-		for (int s = i - 1; s >= 0; --s)
-		{
-			if (nums[i] > nums[s])
-			{
-				len = std::max(len, process(nums, s) + 1);
-			}
-		}
-		return len;
-	}
-	// 从 0 到 i 的最长子序列
-	int length(vector<int>& nums, int i) {
-		if (i < 0) {
-			return 0; 
-		}
-		if (nums[i] > nums[i-1]) {
-			return length(nums, i-1) + 1;
-		} else {
-			return length(nums, i-1);
-		}
-	}
 };
 
 TEST(testCase,test0) {

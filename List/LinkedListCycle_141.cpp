@@ -25,9 +25,27 @@ struct ListNode {
 };
 
 
+/*
+ *
+ * 思路：
+ * 快慢指针，如果能相遇，说明带环
+ *
+ */
+
 class Solution {
 public:
 	bool hasCycle(ListNode *head) {
-
+		if (head == nullptr || head->next == nullptr) {
+			return false;
+		}
+		ListNode *pa = head->next, *pb = head;
+		while(pa != pb) {
+			if (pa == nullptr || pa->next == nullptr) {
+				return false;
+			}
+			pa = pa->next->next;
+			pb = pb->next;
+		}
+		return true;
 	}
 };
