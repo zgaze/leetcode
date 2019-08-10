@@ -47,7 +47,7 @@ public:
 			TreeNode * node = s.top();
 			s.pop();
 			ret.push_back(node->val);
-			curr = curr->right;
+			curr = node->right;
 		}
 		return ret;
 	}
