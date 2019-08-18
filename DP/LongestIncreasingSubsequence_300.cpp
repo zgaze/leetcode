@@ -42,11 +42,11 @@ public:
 		int len = nums.size();
 		int dp[len];
 		memset(dp, 0, sizeof(dp));
-		for (int i = 0; i < len; ++i) {
+		for (int i = 1; i < len; ++i) {
 			int max = 0;
-			for (int j = 0; j < len; ++j) {
-				if (nums[i] > nums[i]) {
-					max = std::max(max, dp[i]);
+			for (int j = 0; j < i; ++j) {
+				if (nums[i] > nums[j]) {
+					max = std::max(max, dp[j]);
 				}
 			}
 			dp[i] = max + 1;
@@ -54,13 +54,32 @@ public:
 		}
 		return ret;
 	}
+};
 
+
+class Solution_1 {
+public:
+	int lengthOfLIS(vector<int>& nums) {
+		int ret = 0;
+		int length = nums.size();
+		std::vector<int> dp(length , 0);
+		for (int i = 0; i < length; ++i) { // 以下标i结尾的
+			dp[i] = 1;
+			for (int j = 0; j <= i; ++j) {
+				if (nums[i] > nums[j] && dp[j] + 1 > dp[i]) {
+					dp[i] = dp[j] + 1;
+					ret = std::max(ret, dp[i]);
+				}
+			}
+		}
+		return ret;
+	}
 };
 
 TEST(testCase,test0) {
-	Solution s;
-	vector<int> nums {10,9,2,5,3,7,101,18};
-	EXPECT_EQ(s.lengthOfLIS(nums), 4);
+	Solution_1 s;
+	vector<int> nums {10,9,2,5,3,7,101,18,107};
+	EXPECT_EQ(s.lengthOfLIS(nums), 5);
 }
 
 
