@@ -45,6 +45,35 @@ public:
 	}
 };
 
+
+class Solution1 {
+public:
+	vector<vector<int>> ret;
+	vector<int> visited;
+	void backtrack(vector<int>& nums, vector<int>& path) {
+		if (path.size() == nums.size()) {
+			ret.push_back(path);
+			return;
+		}
+		for (int i = 0; i < (int)nums.size(); ++i) {
+			if (visited[i])
+				continue;
+			path.push_back(nums[i]);
+			visited[i] = 1;
+			backtrack(nums, path);
+			visited[i] = 0;
+			path.pop_back();
+		}
+	}
+	vector<vector<int>> permute(vector<int>& nums) {
+		visited.resize(nums.size());
+		vector<int> path;
+		backtrack(nums, path);
+		return ret;
+	}
+};
+
+
 TEST(testCase,test0) {
 
 }
@@ -52,7 +81,7 @@ TEST(testCase,test0) {
 
 int main(int argc, char* argv[]) {
 	vector<int> a {1, 2, 3, 4, 5, 6};
-	Solution s;
+	Solution1 s;
 	vector<vector<int>> ret = s.permute(a);
 	/*
 	for (auto &  v: ret) {
