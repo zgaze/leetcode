@@ -37,7 +37,7 @@ struct TreeNode {
 class Solution {
 public:
 	bool hasPathSum(TreeNode* root, int sum) {
-		   if (root == nullptr)
+		if (root == nullptr)
 			   return false;
 		if (root->left == nullptr && root->right == nullptr) {
 			return root->val == sum;
