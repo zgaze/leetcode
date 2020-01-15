@@ -112,8 +112,8 @@ public:
 };
 
 TEST(testCase,test0) {
-	std::vector<int> v1 {1, 2, 13, 14, 15};
-	std::vector<int> v2 {1, 2, 8, 9, 15};
+	std::vector<int> v1 {1};
+	std::vector<int> v2 {2, 3, 8, 9, 15};
 	Solution s;
 	printf("index: %d is %f\n", 1, s.findKth(v1, v2, 0, 0, 1));
 	printf("index: %d is %f\n", 2, s.findKth(v1, v2, 0, 0, 2));
@@ -121,11 +121,12 @@ TEST(testCase,test0) {
 	printf("index: %d is %f\n", 4, s.findKth(v1, v2, 0, 0, 4));
 	printf("index: %d is %f\n", 5, s.findKth(v1, v2, 0, 0, 5));
 	printf("index: %d is %f\n", 6, s.findKth(v1, v2, 0, 0, 6));
+	/*
 	printf("index: %d is %f\n", 7, s.findKth(v1, v2, 0, 0, 7));
 	printf("index: %d is %f\n", 8, s.findKth(v1, v2, 0, 0, 8));
 	printf("index: %d is %f\n", 9, s.findKth(v1, v2, 0, 0, 9));
 	printf("index: %d is %f\n", 10, s.findKth(v1, v2, 0, 0, 10));
-
+	*/
 }
 
 
