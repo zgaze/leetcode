@@ -30,6 +30,20 @@ using std::string;
 
 class solution {
 public:
+	// 另一种partition方法
+	int partation_I(std::vector<int> & n, int begin, int end) {
+		int flag = n[begin];
+		int i = begin;
+		for (int j = begin + 1; j <= end; ++j) {
+			if (n[j] < flag) {
+				i++;
+				std::swap(n[j], n[i]);
+			}
+		}
+		std::swap(n[i], n[begin]);
+		return i;
+	}
+
 	int partation(std::vector<int> & n, int begin, int end) {
 		int i = begin, j = end;
 		int x = n[begin]; // 基准数
@@ -37,12 +51,12 @@ public:
 			while (i < j && n[j] >= x) j--;
 			if (i < j) {
 				n[i] = n[j];
-				i++;
+				//i++;
 			}
 			while (i < j && n[i] < x) i++;
 			if (i < j) {
 				n[j] = n[i];
-				j--;
+				//j--;
 			}
 		}
 		n[i] = x;
@@ -54,7 +68,7 @@ public:
 			if (n[begin] > n[end]) std::swap(n[begin] , n[end]);
 			return;
 		}
-		int mid = partation(n, begin, end);
+		int mid = partation_I(n, begin, end);
 		r_quicksort(n, begin, mid - 1);
 		r_quicksort(n, mid + 1, end);
 	}

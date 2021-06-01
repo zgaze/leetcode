@@ -48,9 +48,9 @@ public:
 
 class Solution1 {
 public:
-	vector<vector<int>> ret;
+	vector<vector<string>> ret;
 	vector<int> visited;
-	void backtrack(vector<int>& nums, vector<int>& path) {
+	void backtrack(vector<string>& nums, vector<string>& path) {
 		if (path.size() == nums.size()) {
 			ret.push_back(path);
 			return;
@@ -65,9 +65,9 @@ public:
 			path.pop_back();
 		}
 	}
-	vector<vector<int>> permute(vector<int>& nums) {
+	vector<vector<string>> permute(vector<string>& nums) {
 		visited.resize(nums.size());
-		vector<int> path;
+		vector<string> path;
 		backtrack(nums, path);
 		return ret;
 	}
@@ -80,10 +80,9 @@ TEST(testCase,test0) {
 
 
 int main(int argc, char* argv[]) {
-	vector<int> a {1, 2, 3, 4, 5, 6};
+	vector<string> a {"溪" ,"页" ,"芦","梨","荷",  "塘","都","渔","冬","安","佑","雁","虞","良","泽","期","枫","风","林","空","山","雾","远","半"};
 	Solution1 s;
-	vector<vector<int>> ret = s.permute(a);
-	/*
+	vector<vector<string>> ret = s.permute(a);
 	for (auto &  v: ret) {
 		std::stringstream ss;
 		for (auto a : v) {
@@ -91,8 +90,6 @@ int main(int argc, char* argv[]) {
 		}
 		std::cout << ss.str() << "\n";
 	}
-	*/
-	std::cout << "adasdasd :" << ret.size() << "\n";
     testing::InitGoogleTest(&argc,argv);
     return RUN_ALL_TESTS();
 }
