@@ -36,7 +36,7 @@ class Solution_e {
 public:
 	int movesToMakeZigzag(vector<int>& nums) {
 		int n1=0,n2=0;
-		for(int i=0;i<nums.size();i+=2){
+		for(size_t i = 0; i < nums.size(); i+=2){
 			int t=INT_MAX;
 			if(i+1<nums.size()) t=min(t,nums[i+1]);
 			if(i-1>=0) t=min(t,nums[i-1]);
