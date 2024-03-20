@@ -39,6 +39,8 @@ using std::string;
      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  };
 
+// 前序： 根 左右 ，中序 左根右
+// 前序能找到根，但是分不清左右；中序可以确定左右
 class Solution {
 public:
     TreeNode* build(vector<int>& preorder, vector<int>& inorder, int begin, int end, int& index) {
